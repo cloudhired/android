@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Cloudhired</string>
+    <string name="FirstName">First Name</string>
+    <string name="favoriteDescription">Favorite</string>
+    <string name="search">Search</string>
+    <string name="content_description_search">Search Button</string>
+    <string name="more">More</string>
+</resources>
