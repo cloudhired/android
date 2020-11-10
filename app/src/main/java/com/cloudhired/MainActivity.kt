@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.search -> {
                     // Handle search icon press
-                    println("search clicked")
+                    println("search clickedf")
                     true
                 }
                 R.id.more -> {
