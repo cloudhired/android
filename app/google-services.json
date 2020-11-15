@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "954979426366",
+    "firebase_url": "https://cloudhired-android.firebaseio.com",
+    "project_id": "cloudhired-android",
+    "storage_bucket": "cloudhired-android.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954979426366:android:18b7feb0bc6107321bb16f",
+        "android_client_info": {
+          "package_name": "com.cloudhired"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "954979426366-ms1i2g8phlarrurle30jugjkoco4v33s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqKhOu3GQK6UxBYFPqhzOeSOsgs8huaJc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "954979426366-ms1i2g8phlarrurle30jugjkoco4v33s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
