@@ -10,20 +10,10 @@ import retrofit2.http.Query
 
 
 interface CloudhiredApi {
-    // This function needs to be called from a coroutine, hence the suspend
-    // in its type.  Also note the @Query annotation, which says that when
-    // called, retrofit will add "&difficulty=%s".format(level) to the URL
-    // Thanks, retrofit!
-    // Hardcode several parameters in the GET for simplicity
-    // So URL can have & and ? characters
-    // XXX Write me: Retrofit annotation, see CatNet
-    @GET("/api.php?amount=3&category=9&type=boolean")
-    suspend fun getThree(@Query("difficulty") level: String) : TriviaResponse
-    // XXX Write me: The return type
+    @GET("/api/users")
+    suspend fun getProSum() : ProSumResponse
 
-
-    // I just looked at the response and "parsed" it by eye
-    data class TriviaResponse(val results: List<TriviaQuestion>)
+    data class ProSumResponse(val results: List<ProfessionalSummary>)
 
     companion object {
         // Leave this as a simple, base URL.  That way, we can have many different
@@ -31,7 +21,7 @@ interface CloudhiredApi {
         // https://square.github.io/okhttp/4.x/okhttp/okhttp3/-http-url/
         var url = HttpUrl.Builder()
             .scheme("https")
-            .host("opentdb.com")
+            .host("cloudhired.com")
             .build()
 
         // Public create function that ties together building the base

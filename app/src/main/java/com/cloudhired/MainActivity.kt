@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,13 +17,15 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.cloudhired.api.ProfessionalSummary
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-//    private val viewMdoel: M
+    private val viewModel: MainViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -39,7 +42,12 @@ class MainActivity : AppCompatActivity() {
 
         topAppBar.setNavigationOnClickListener {
             println("you clicked topapp bar")
+            viewModel.netRefresh()
         }
+
+        viewModel.observeProSums().observe(this, Observer {
+            println(it[0])
+        })
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
