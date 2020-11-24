@@ -42,12 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         topAppBar.setNavigationOnClickListener {
             println("you clicked topapp bar")
-            viewModel.netRefresh()
         }
-
-        viewModel.observeProSums().observe(this, Observer {
-            println(it[0])
-        })
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {

@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cloudhired.MainActivity
+import com.cloudhired.MainViewModel
+import com.cloudhired.ProRowAdapter
 import com.cloudhired.R
+import kotlinx.android.synthetic.main.fragment_professionals.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +27,7 @@ class fragment_professionals : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +44,22 @@ class fragment_professionals : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_professionals, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val adapter = ProRowAdapter(viewModel)
+        proRecyclerView.adapter = adapter
+        proRecyclerView.layoutManager = LinearLayoutManager(activity)
+
+        viewModel.netRefresh()
+
+        viewModel.observeProSums().observe(viewLifecycleOwner, {
+            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+        })
+    }
+
 
     companion object {
         /**
