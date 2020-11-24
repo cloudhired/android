@@ -12,4 +12,13 @@
         android:layout_marginTop="300dp"
         android:text="Hello pros" />
 
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/proSwipeRefreshLayout">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/proRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>
