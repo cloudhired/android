@@ -1,6 +1,10 @@
 package com.cloudhired
 
 import android.os.Bundle
+import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -30,16 +34,37 @@ class ViewProfile : AppCompatActivity() {
             vpLocation.text = it.current_loc
 
             vpIntro.text = it.intro
+            vpSkillsChipGroup.removeAllViews()
             it.skills.forEach {
                 val chip = Chip(vpSkillsChipGroup.context)
                 chip.text = it
                 vpSkillsChipGroup.addView(chip)
             }
 
+            vpCertsLL.addView(createCertLL())
+
         })
 
         vpBack.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun createCertLL(): LinearLayout {
+        val lparams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        return LinearLayout(vpCertsLL.context).apply {
+            layoutParams = lparams
+            setPadding(0, 8, 0, 8)
+            orientation = LinearLayout.HORIZONTAL
+            addView(ImageView(this.context).apply {
+
+            })
+            addView(TextView(this.context).apply {
+                text = "testing text"
+            })
         }
     }
 }
