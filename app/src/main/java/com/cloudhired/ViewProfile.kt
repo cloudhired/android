@@ -15,6 +15,9 @@ class ViewProfile : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_profile)
         swipe = vpSwipe
+        swipe.setOnRefreshListener {
+            viewModel.netProfile(intent.getStringExtra("iUsername")!!)
+        }
 
         viewModel.netProfile(intent.getStringExtra("iUsername")!!)
         viewModel.observeProfile().observe(this, {
@@ -23,11 +26,9 @@ class ViewProfile : AppCompatActivity() {
             vpName.text = it.fullname
             vpJobCom.text = "${it.job_title} at ${it.company}"
             vpLocation.text = it.current_loc
-        })
 
-        swipe.setOnRefreshListener {
-            viewModel.netProfile(intent.getStringExtra("iUsername")!!)
-        }
+            vpIntro.text = it.intro
+        })
 
         vpBack.setOnClickListener {
             finish()
