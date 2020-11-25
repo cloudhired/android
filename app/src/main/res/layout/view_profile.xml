@@ -55,7 +55,7 @@
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/opCL">
+            android:id="@+id/vpCL">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card"
@@ -113,9 +113,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -55,6 +55,7 @@ class ProRowAdapter(private val viewModel: MainViewModel)
         init {
             basicLL.setOnClickListener {
                 println("you clicked a LL")
+
                 val pvIntent = Intent(it.context, ViewProfile::class.java)
                 val pvExtras = Bundle()
                 pvExtras.putString(iUsername, getItem(adapterPosition).username)
