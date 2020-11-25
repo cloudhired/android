@@ -18,12 +18,6 @@ import com.cloudhired.R
 import kotlinx.android.synthetic.main.row_professional.view.*
 import java.net.URL
 
-
-// This adapter inherits from ListAdapter, which should mean that all we need
-// to do is give it a new list and an old list and as clients we will never
-// have to call notifyDatasetChanged().  Well, unfortunately, I can't implement
-// equal for SpannableStrings correctly.  So clients of this adapter are, under
-// certain circumstances, going to have to call notifyDatasetChanged()
 class ProRowAdapter(private val viewModel: MainViewModel)
     : ListAdapter<ProfessionalSummary, ProRowAdapter.VH>(ProSumDiff()) {
     companion object {
@@ -37,32 +31,15 @@ class ProRowAdapter(private val viewModel: MainViewModel)
         private var certTV = itemView.findViewById<TextView>(R.id.certs_num)
         private var basicLL = itemView.findViewById<LinearLayout>(R.id.basic_info)
 
-        // helper fun to set listener to post elements
-//        private fun setOPListener(it: View) {
-//            it.setOnClickListener {
-//                val postIntent = Intent(it.context, OnePost::class.java)
-//                val postExtras = Bundle()
-//                postExtras.putString(iTitle, getItem(adapterPosition).title.toString())
-//                postExtras.putString(iSelfText, getItem(adapterPosition).selfText.toString())
-//                postExtras.putString(iUrl, getItem(adapterPosition).imageURL)
-//                postExtras.putString(iTUrl, getItem(adapterPosition).thumbnailURL)
-//                postIntent.putExtras(postExtras)
-//                it.context.startActivity(postIntent)
-//            }
-//        }
-
-
         init {
             basicLL.setOnClickListener {
                 println("you clicked a LL")
-
                 val pvIntent = Intent(it.context, ViewProfile::class.java)
                 val pvExtras = Bundle()
                 pvExtras.putString(iUsername, getItem(adapterPosition).username)
                 pvIntent.putExtras(pvExtras)
                 it.context.startActivity(pvIntent)
             }
-
         }
 
         fun bind(item: ProfessionalSummary) {
