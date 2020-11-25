@@ -2,6 +2,7 @@ package com.cloudhired
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -54,6 +55,9 @@ class ViewProfile : AppCompatActivity() {
             it.courses.forEach { course ->
                 vpCoursesLL.addView(createCourseLL(course.name))
             }
+
+            // set whole constraint layout visible to show result at once
+            vpCL.visibility = View.VISIBLE
         })
 
         vpBack.setOnClickListener {
