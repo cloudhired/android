@@ -44,7 +44,8 @@ class ViewProfile : AppCompatActivity() {
                 vpSkillsChipGroup.addView(chip)
             }
 
-            vpCertsLL.removeAllViews()
+            // delete all views except the title TV
+            vpCertsLL.removeViews(1, vpCertsLL.childCount - 1)
             it.certs.forEach { cert ->
                 vpCertsLL.addView(createCertLL(cert.cert_name))
             }
