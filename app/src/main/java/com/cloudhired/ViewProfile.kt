@@ -5,6 +5,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cloudhired.R
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
 import kotlinx.android.synthetic.main.view_profile.*
 
 class ViewProfile : AppCompatActivity() {
@@ -28,6 +30,12 @@ class ViewProfile : AppCompatActivity() {
             vpLocation.text = it.current_loc
 
             vpIntro.text = it.intro
+            it.skills.forEach {
+                val chip = Chip(vpSkillsChipGroup.context)
+                chip.text = it
+                vpSkillsChipGroup.addView(chip)
+            }
+
         })
 
         vpBack.setOnClickListener {
