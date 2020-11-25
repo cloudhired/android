@@ -39,6 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="18dp"
+            android:textFontWeight="@integer/config_navAnimTime"
             android:text="Morgan Gao"/>
         <TextView
             android:id="@+id/location"
