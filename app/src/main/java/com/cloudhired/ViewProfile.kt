@@ -49,6 +49,11 @@ class ViewProfile : AppCompatActivity() {
             it.certs.forEach { cert ->
                 vpCertsLL.addView(createCertLL(cert.cert_name))
             }
+
+            vpCoursesLL.removeViews(1, vpCoursesLL.childCount - 1)
+            it.courses.forEach { course ->
+                vpCoursesLL.addView(createCourseLL(course.name))
+            }
         })
 
         vpBack.setOnClickListener {
@@ -77,6 +82,28 @@ class ViewProfile : AppCompatActivity() {
             })
             addView(TextView(this.context).apply {
                 text = certName
+            }, TVlparams)
+        }
+    }
+
+    private fun createCourseLL(courseName: String): LinearLayout {
+        val lparams = ViewGroup.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        val TVlparams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        TVlparams.gravity = Gravity.CENTER
+        TVlparams.marginStart = 16
+
+        return LinearLayout(vpCertsLL.context).apply {
+            layoutParams = lparams
+            setPadding(0, 8, 0, 8)
+            orientation = LinearLayout.HORIZONTAL
+            addView(TextView(this.context).apply {
+                text = courseName
             }, TVlparams)
         }
     }
