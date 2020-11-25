@@ -1,12 +1,15 @@
 package com.cloudhired
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.marginStart
+import androidx.core.view.marginTop
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cloudhired.R
 import com.google.android.material.chip.Chip
@@ -35,14 +38,16 @@ class ViewProfile : AppCompatActivity() {
 
             vpIntro.text = it.intro
             vpSkillsChipGroup.removeAllViews()
-            it.skills.forEach {
+            it.skills.forEach { skill ->
                 val chip = Chip(vpSkillsChipGroup.context)
-                chip.text = it
+                chip.text = skill
                 vpSkillsChipGroup.addView(chip)
             }
 
-            vpCertsLL.addView(createCertLL())
-
+            vpCertsLL.removeAllViews()
+            it.certs.forEach { cert ->
+                vpCertsLL.addView(createCertLL(cert.cert_name))
+            }
         })
 
         vpBack.setOnClickListener {
@@ -50,21 +55,28 @@ class ViewProfile : AppCompatActivity() {
         }
     }
 
-    private fun createCertLL(): LinearLayout {
+    private fun createCertLL(certName: String): LinearLayout {
         val lparams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
+        val TVlparams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        TVlparams.gravity = Gravity.CENTER
+        TVlparams.marginStart = 16
+
         return LinearLayout(vpCertsLL.context).apply {
             layoutParams = lparams
             setPadding(0, 8, 0, 8)
             orientation = LinearLayout.HORIZONTAL
             addView(ImageView(this.context).apply {
-
+                setImageResource(R.drawable.ic_baseline_image_36)
             })
             addView(TextView(this.context).apply {
-                text = "testing text"
-            })
+                text = certName
+            }, TVlparams)
         }
     }
 }
