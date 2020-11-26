@@ -1,4 +1,4 @@
-package com.cloudhired.api
+package com.cloudhired.model
 
 import com.google.gson.annotations.SerializedName
 
@@ -15,6 +15,8 @@ data class ProfessionalSummary (
     val current_loc: String,
     @SerializedName("company")
     val company: String,
+    @SerializedName("email")
+    val email: String,
     @SerializedName("number_certs")
     val number_certs: String
 )

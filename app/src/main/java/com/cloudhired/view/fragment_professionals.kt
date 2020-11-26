@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cloudhired.MainActivity
 import com.cloudhired.MainViewModel
 import com.cloudhired.ProRowAdapter
@@ -27,6 +28,7 @@ class fragment_professionals : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var swipe: SwipeRefreshLayout
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +49,10 @@ class fragment_professionals : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        swipe = proSwipe
+        swipe.setOnRefreshListener {
+            viewModel.netRefresh()
+        }
 
         val adapter = ProRowAdapter(viewModel)
         proRecyclerView.adapter = adapter
@@ -57,6 +63,7 @@ class fragment_professionals : Fragment() {
         viewModel.observeProSums().observe(viewLifecycleOwner, {
             adapter.submitList(it)
             adapter.notifyDataSetChanged()
+            if (swipe.isRefreshing) swipe.isRefreshing = false
         })
     }
 

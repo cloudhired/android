@@ -1,44 +1,44 @@
-package com.cloudhired.api
+package com.cloudhired.model
 
 import com.google.gson.annotations.SerializedName
 
 data class ProfessionalProfile (
-    @SerializedName("_id")
+        @SerializedName("_id")
     val _id: String,
-    @SerializedName("username")
+        @SerializedName("username")
     val username: String,
-    @SerializedName("fullname")
+        @SerializedName("fullname")
     val fullname: String,
-    @SerializedName("fname")
+        @SerializedName("fname")
     val fname: String,
-    @SerializedName("lname")
+        @SerializedName("lname")
     val lname: String,
-    @SerializedName("job_title")
+        @SerializedName("job_title")
     val job_title: String,
-    @SerializedName("current_loc")
+        @SerializedName("current_loc")
     val current_loc: String,
-    @SerializedName("company")
+        @SerializedName("company")
     val company: String,
-    @SerializedName("yoe")
+        @SerializedName("yoe")
     val yoe: String,
-    @SerializedName("personal_site")
+        @SerializedName("personal_site")
     val personal_site: String,
-    @SerializedName("linkedin_handle")
+        @SerializedName("linkedin_handle")
     val linkedin_handle: String,
-    @SerializedName("github_handle")
+        @SerializedName("github_handle")
     val github_handle: String,
-    @SerializedName("email")
+        @SerializedName("email")
     val email: String,
-    @SerializedName("intro")
+        @SerializedName("intro")
     val intro: String,
-    @SerializedName("skills")
+        @SerializedName("skills")
     val skills: List<String>,
-    @SerializedName("certs")
+        @SerializedName("certs")
     val certs: List<Cert>,
-    @SerializedName("courses")
+        @SerializedName("courses")
     val courses: List<Course>,
 
-    @SerializedName("number_certs")
+        @SerializedName("number_certs")
     val number_certs: String
 )
 

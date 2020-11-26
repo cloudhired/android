@@ -2,26 +2,22 @@ package com.cloudhired
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.cloudhired.api.ProfessionalSummary
-import com.cloudhired.R
-import kotlinx.android.synthetic.main.row_professional.view.*
-import java.net.URL
+import com.cloudhired.model.ProfessionalSummary
 
 class ProRowAdapter(private val viewModel: MainViewModel)
     : ListAdapter<ProfessionalSummary, ProRowAdapter.VH>(ProSumDiff()) {
     companion object {
         const val iUsername = "iUsername"
+        const val iEmail = "iEmail"
     }
 
     inner class VH(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -30,6 +26,7 @@ class ProRowAdapter(private val viewModel: MainViewModel)
         private var companyTV = itemView.findViewById<TextView>(R.id.company)
         private var certTV = itemView.findViewById<TextView>(R.id.certs_num)
         private var basicLL = itemView.findViewById<LinearLayout>(R.id.basic_info)
+        private var msgTV = itemView.findViewById<ImageView>(R.id.message)
 
         init {
             basicLL.setOnClickListener {
@@ -37,6 +34,15 @@ class ProRowAdapter(private val viewModel: MainViewModel)
                 val pvIntent = Intent(it.context, ViewProfile::class.java)
                 val pvExtras = Bundle()
                 pvExtras.putString(iUsername, getItem(adapterPosition).username)
+                pvIntent.putExtras(pvExtras)
+                it.context.startActivity(pvIntent)
+            }
+
+            msgTV.setOnClickListener {
+                println("clicked msg")
+                val pvIntent = Intent(it.context, Chat::class.java)
+                val pvExtras = Bundle()
+                pvExtras.putString(iEmail, getItem(adapterPosition).email)
                 pvIntent.putExtras(pvExtras)
                 it.context.startActivity(pvIntent)
             }

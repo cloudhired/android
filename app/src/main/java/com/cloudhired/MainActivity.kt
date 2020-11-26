@@ -4,22 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.content.Intent
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.cloudhired.api.ProfessionalSummary
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -54,12 +45,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.search -> {
                     // Handle search icon press
                     println("search clickedfg")
-                    true
-                }
-                R.id.more -> {
-                    // Handle more item (inside overflow menu) press
-                    FirebaseAuth.getInstance().signOut()
-                    println("more clicked")
                     true
                 }
                 else -> false
