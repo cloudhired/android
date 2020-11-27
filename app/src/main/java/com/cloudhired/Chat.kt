@@ -30,6 +30,12 @@ class Chat : AppCompatActivity() {
     private var fragmentUUID: String? = null
     private val viewModel: MainViewModel by viewModels()
 
+    private fun initAuth() {
+        viewModel.observeFirebaseAuthLiveData().observe(this, {
+            currentUser = it
+        })
+    }
+
     private fun scrollToEnd() =
             (chatAdapter.itemCount - 1).takeIf { it > 0 }?.let(cvChatRV::smoothScrollToPosition)
     private fun initRecyclerView()  {
@@ -77,6 +83,7 @@ class Chat : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.view_chat)
 
+        initAuth()
         initComposeSendIB()
         initRecyclerView()
 
