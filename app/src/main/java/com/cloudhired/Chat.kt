@@ -24,20 +24,25 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.view_chat.*
 
 class Chat : AppCompatActivity() {
+    private val viewModel: MainViewModel by viewModels()
     private lateinit var swipe: SwipeRefreshLayout
     private lateinit var chatAdapter: ChatAdapter
     private var currentUser: FirebaseUser? = null
     private var fragmentUUID: String? = null
-    private val viewModel: MainViewModel by viewModels()
 
+    private fun scrollToEnd() =
+            (chatAdapter.itemCount - 1).takeIf { it > 0 }?.let(cvChatRV::smoothScrollToPosition)
+    private fun clearCompose() {
+        // XXX Write me
+        cvComposePreviewIV.visibility = View.GONE
+        cvComposeMessageET.setText("")
+        fragmentUUID = null
+    }
     private fun initAuth() {
         viewModel.observeFirebaseAuthLiveData().observe(this, {
             currentUser = it
         })
     }
-
-    private fun scrollToEnd() =
-            (chatAdapter.itemCount - 1).takeIf { it > 0 }?.let(cvChatRV::smoothScrollToPosition)
     private fun initRecyclerView()  {
         chatAdapter = ChatAdapter(viewModel)
         cvChatRV.adapter = chatAdapter
@@ -48,14 +53,6 @@ class Chat : AppCompatActivity() {
         }
         // Dividers not so nice in chat
     }
-
-    private fun clearCompose() {
-        // XXX Write me
-        cvComposePreviewIV.visibility = View.GONE
-        cvComposeMessageET.setText("")
-        fragmentUUID = null
-    }
-
     private fun initComposeSendIB() {
         // Send message button
         cvComposeSendIB.setOnClickListener {
@@ -74,7 +71,7 @@ class Chat : AppCompatActivity() {
                     pictureUUID = fragmentUUID
                     clearCompose()
                 }
-                viewModel.saveChatRow(chatRow)
+                viewModel.saveChatRow(intent.getStringExtra("iToEmail")!!, chatRow)
             }
         }
     }
@@ -87,7 +84,7 @@ class Chat : AppCompatActivity() {
         initComposeSendIB()
         initRecyclerView()
 
-        viewModel.getChat()
+        viewModel.getChat(intent.getStringExtra("iToEmail")!!)
         viewModel.observeChat().observe(this, {
             chatAdapter.submitList(it)
         })
@@ -106,8 +103,6 @@ class Chat : AppCompatActivity() {
         }
 
         cvComposePreviewIV.visibility = View.GONE
-
-
         vcBack.setOnClickListener {
             finish()
         }

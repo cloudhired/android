@@ -17,7 +17,7 @@ class ProRowAdapter(private val viewModel: MainViewModel)
     : ListAdapter<ProfessionalSummary, ProRowAdapter.VH>(ProSumDiff()) {
     companion object {
         const val iUsername = "iUsername"
-        const val iEmail = "iEmail"
+        const val iToEmail = "iToEmail"
     }
 
     inner class VH(itemView: View): RecyclerView.ViewHolder(itemView) {
@@ -26,7 +26,7 @@ class ProRowAdapter(private val viewModel: MainViewModel)
         private var companyTV = itemView.findViewById<TextView>(R.id.company)
         private var certTV = itemView.findViewById<TextView>(R.id.certs_num)
         private var basicLL = itemView.findViewById<LinearLayout>(R.id.basic_info)
-        private var msgTV = itemView.findViewById<ImageView>(R.id.message)
+        private var msgIV = itemView.findViewById<ImageView>(R.id.message)
 
         init {
             basicLL.setOnClickListener {
@@ -38,11 +38,11 @@ class ProRowAdapter(private val viewModel: MainViewModel)
                 it.context.startActivity(pvIntent)
             }
 
-            msgTV.setOnClickListener {
+            msgIV.setOnClickListener {
                 println("clicked msg")
                 val pvIntent = Intent(it.context, Chat::class.java)
                 val pvExtras = Bundle()
-                pvExtras.putString(iEmail, getItem(adapterPosition).email)
+                pvExtras.putString(iToEmail, getItem(adapterPosition).email)
                 pvIntent.putExtras(pvExtras)
                 it.context.startActivity(pvIntent)
             }

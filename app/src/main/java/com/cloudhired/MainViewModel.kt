@@ -38,6 +38,9 @@ class MainViewModel(application: Application,
     fun observeFirebaseAuthLiveData(): LiveData<FirebaseUser?> {
         return firebaseAuthLiveData
     }
+    fun getFirebaseAuthLiveData(): FirebaseUser? {
+        return firebaseAuthLiveData.value
+    }
 
 
     /***
@@ -82,11 +85,13 @@ class MainViewModel(application: Application,
     fun observeChat(): LiveData<List<ChatRow>> {
         return chat
     }
-    fun saveChatRow(chatRow: ChatRow) {
+    fun saveChatRow(toEmail: String, chatRow: ChatRow) {
         // https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
-        // Remember to set the rowID of the chatRow before saving it
-        chatRow.rowID = db.collection("chMessages").document().id
-        db.collection("chMessages")
+        // Remember to set the rowID of the chatRow before saving
+        chatRow.rowID = db.collection("userInteractions").document().id
+        db.collection("userInteractions")
+                .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
+                .collection("chatMessages")
                 .document(chatRow.rowID)
                 .set(chatRow)
                 .addOnSuccessListener {
@@ -111,14 +116,17 @@ class MainViewModel(application: Application,
 //        }
     }
 
-    fun getChat() {
+    fun getChat(toEmail: String) {
         if(FirebaseAuth.getInstance().currentUser == null) {
             Log.d(javaClass.simpleName, "Can't get chat, no one is logged in")
             chat.value = listOf()
             return
         }
         // XXX Write me.  Limit total number of chat rows to 100
-        db.collection("chMessages")
+        println("$toEmail-${FirebaseAuth.getInstance().currentUser?.email}")
+        db.collection("userInteractions")
+                .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
+                .collection("chatMessages")
                 .orderBy("timeStamp")
                 .limit(100)
                 .addSnapshotListener { querySnapshot, ex ->
@@ -137,6 +145,14 @@ class MainViewModel(application: Application,
         Log.d(javaClass.simpleName, "onCleared!!")
         super.onCleared()
         chatListener?.remove()
+    }
+
+    private fun generateConversationId(a: String, b: String): String {
+        return if (a.toLowerCase() > b.toLowerCase()) {
+            "$b-$a"
+        } else {
+            "$a-$b"
+        }
     }
 
 }
