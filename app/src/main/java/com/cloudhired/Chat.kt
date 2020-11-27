@@ -84,6 +84,7 @@ class Chat : AppCompatActivity() {
         initComposeSendIB()
         initRecyclerView()
 
+        vcTitle.text = intent.getStringExtra("iFullname")
         viewModel.getChat(intent.getStringExtra("iToEmail")!!)
         viewModel.observeChat().observe(this, {
             chatAdapter.submitList(it)

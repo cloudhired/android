@@ -75,9 +75,9 @@ class ChatAdapter(private var viewModel: MainViewModel)
                                  userTV: TextView, timeTV: TextView, textTV: TextView,
                                  textCV: CardView, picIV: ImageView) {
             // Set background on CV, not TV because...layout is weird
-            textCV.setCardBackgroundColor(backgroundColor)
-            textTV.setTextColor(textColor)
-            userTV.text = item.name
+            textCV.setCardBackgroundColor(Color.TRANSPARENT)
+//            textTV.setTextColor(textColor)
+//            userTV.text = item.name
             textTV.text = item.message
             textCV.setOnLongClickListener {
                 viewModel.deleteChatRow(item)
@@ -90,12 +90,12 @@ class ChatAdapter(private var viewModel: MainViewModel)
 //                picIV.visibility = View.GONE
 //            }
 
-            if (item.timeStamp == null) {
-                timeTV.text = ""
-            } else {
-                //Log.d(javaClass.simpleName, "date ${item.timeStamp}")
-                timeTV.text = dateFormat.format(item.timeStamp.toDate())
-            }
+//            if (item.timeStamp == null) {
+//                timeTV.text = ""
+//            } else {
+//                //Log.d(javaClass.simpleName, "date ${item.timeStamp}")
+//                timeTV.text = dateFormat.format(item.timeStamp.toDate())
+//            }
         }
         fun bind(item: ChatRow?) {
             if (item == null) return

@@ -16,6 +16,7 @@ import com.cloudhired.model.ProfessionalSummary
 class ProRowAdapter(private val viewModel: MainViewModel)
     : ListAdapter<ProfessionalSummary, ProRowAdapter.VH>(ProSumDiff()) {
     companion object {
+        const val iFullname = "iFullname"
         const val iUsername = "iUsername"
         const val iToEmail = "iToEmail"
     }
@@ -42,6 +43,7 @@ class ProRowAdapter(private val viewModel: MainViewModel)
                 println("clicked msg")
                 val pvIntent = Intent(it.context, Chat::class.java)
                 val pvExtras = Bundle()
+                pvExtras.putString(iFullname, getItem(adapterPosition).fullname)
                 pvExtras.putString(iToEmail, getItem(adapterPosition).email)
                 pvIntent.putExtras(pvExtras)
                 it.context.startActivity(pvIntent)
