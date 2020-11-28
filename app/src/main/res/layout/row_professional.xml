@@ -65,12 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/basic_info"
         app:layout_constraintEnd_toStartOf="@+id/message">
-        <TextView
-            android:id="@+id/certs_num_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Certifications"/>
+
         <TextView
             android:id="@+id/certs_num"
             android:layout_width="wrap_content"
@@ -79,6 +74,12 @@
             android:layout_weight="2"
             android:textSize="30dp"
             android:text="5"/>
+        <TextView
+            android:id="@+id/certs_num_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Certs"/>
     </LinearLayout>
     <ImageView
         android:id="@+id/message"
