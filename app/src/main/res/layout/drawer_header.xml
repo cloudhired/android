@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_header"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary">
+    <ImageView
+        android:id="@+id/dhIV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_baseline_account_circle_60"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/dhLL"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <LinearLayout
+        android:id="@+id/dhLL"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/dhIV">
+        <TextView
+            android:id="@+id/dh_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="24dp"
+            android:textFontWeight="@integer/config_navAnimTime"
+            android:text="Morgan Gao"/>
+        <TextView
+            android:id="@+id/dh_viewprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="18dp"
+            android:text="View my profile"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/drawer_main_nav">
+        <item
+            android:id="@+id/fragment_professionals"
+            android:icon="@drawable/ic_baseline_people_alt_24"
+            android:title="@string/pros"
+            android:contentDescription="@string/pros_description" />
+
+        <item
+            android:id="@+id/fragment_jobs"
+            android:icon="@drawable/ic_baseline_work_24"
+            android:title="@string/jobs"
+            android:contentDescription="@string/jobs_description" />
+
+        <item
+            android:id="@+id/fragment_notifications"
+            android:icon="@drawable/ic_baseline_notifications_24"
+            android:title="@string/notifications"
+            android:contentDescription="@string/notifications_description"/>
+    </group>
+
+
+    <item
+        android:id="@+id/signout"
+        android:icon="@drawable/ic_sign_out_alt"
+        android:title="Sign Out"
+        />
+</menu>
