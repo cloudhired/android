@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
         val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.fragment_professionals, R.id.fragment_jobs, R.id.fragment_notifications),
@@ -48,11 +47,6 @@ class MainActivity : AppCompatActivity() {
 
         val authInitIntent = Intent(this, AuthInitActivity::class.java)
         startActivity(authInitIntent)
-
-
-        topAppBar.setNavigationOnClickListener {
-            println("you clicked topapp bar")
-        }
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
