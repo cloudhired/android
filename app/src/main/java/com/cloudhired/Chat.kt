@@ -56,7 +56,7 @@ class Chat : AppCompatActivity() {
     private fun initComposeSendIB() {
         // Send message button
         cvComposeSendIB.setOnClickListener {
-            if( cvComposeMessageET.text.isNotEmpty()) {
+            if( cvComposeMessageET.text!!.isNotEmpty()) {
                 val chatRow = ChatRow().apply {
                     val cUser = currentUser
                     if(cUser == null) {
