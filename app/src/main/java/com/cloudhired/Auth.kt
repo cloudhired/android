@@ -12,6 +12,7 @@ class Auth(activity: MainActivity) {
         const val rcSignIn = 27
         // Choose authentication providers
         val providers = arrayListOf(
+            AuthUI.IdpConfig.GoogleBuilder().build(),
             AuthUI.IdpConfig.EmailBuilder().build()
         )
         var user = FirebaseAuth.getInstance().currentUser
