@@ -27,5 +27,6 @@
         android:id="@+id/signout"
         android:icon="@drawable/ic_sign_out_alt"
         android:title="Sign Out"
+        android:onClick="onMenuItemClick"
         />
 </menu>

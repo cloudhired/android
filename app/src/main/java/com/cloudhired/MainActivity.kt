@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -19,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import org.w3c.dom.Text
 
 
 class MainActivity : AppCompatActivity() {
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -71,7 +74,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        println(item)
+        // TODO: get user fullname and pass to drawer
+        findViewById<TextView>(R.id.dh_name).setText("TESERTS")
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
@@ -95,6 +99,18 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNavMenu(navController: NavController) {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav?.setupWithNavController(navController)
+    }
+
+    fun onMenuItemClick(menuItem: MenuItem) {
+        when (menuItem.itemId) {
+            R.id.signout -> {
+                println(menuItem.itemId)
+                true
+            }
+            else -> {
+                false
+            }
+        }
     }
 
 }
