@@ -72,7 +72,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/fui_transparent"
             android:id="@+id/vcSeparator"
             app:layout_constraintBottom_toTopOf="@+id/cvComposePreviewIV"
             app:layout_constraintTop_toBottomOf="@+id/cvChatRV"
@@ -91,6 +91,9 @@
             android:gravity="center_horizontal"
             android:id="@+id/cvEnterTextLL"
             android:orientation="horizontal"
+            android:layout_marginBottom="4dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -100,16 +103,26 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cvComposeCameraIB"
                 android:background="@drawable/ic_baseline_camera_alt_24"
+                android:visibility="gone"
                 />
             <!-- imeOptions will allow me to fire text and collapse
                  soft keyboard when user hits "enter" -->
-            <EditText
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextField"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:id="@+id/cvComposeMessageET"
                 android:layout_height="wrap_content"
-                android:imeOptions="actionDone"
-                />
+                android:layout_weight="1"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/cvComposeMessageET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

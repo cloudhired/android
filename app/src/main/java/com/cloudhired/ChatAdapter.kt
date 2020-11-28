@@ -65,11 +65,11 @@ class ChatAdapter(private var viewModel: MainViewModel)
         }
         private fun visibleElements(userTV: TextView, timeTV: TextView, textTV: TextView,
                                  textCV: CardView, picIV: ImageView) {
-            userTV.visibility = View.VISIBLE
+            userTV.visibility = View.GONE
             timeTV.visibility = View.VISIBLE
             textTV.visibility = View.VISIBLE
             textCV.visibility = View.VISIBLE
-            picIV.visibility = View.VISIBLE
+            picIV.visibility = View.GONE
         }
         private fun bindElements(item: ChatRow, backgroundColor: Int, textColor: Int,
                                  userTV: TextView, timeTV: TextView, textTV: TextView,
@@ -90,12 +90,13 @@ class ChatAdapter(private var viewModel: MainViewModel)
 //                picIV.visibility = View.GONE
 //            }
 
-//            if (item.timeStamp == null) {
-//                timeTV.text = ""
-//            } else {
-//                //Log.d(javaClass.simpleName, "date ${item.timeStamp}")
-//                timeTV.text = dateFormat.format(item.timeStamp.toDate())
-//            }
+            if (item.timeStamp == null) {
+                timeTV.text = ""
+            } else {
+                //Log.d(javaClass.simpleName, "date ${item.timeStamp}") dateFormat.format(item.timeStamp.toDate()).
+                val currentTime = item.timeStamp.toDate()
+                timeTV.text = "${currentTime.hours}:${currentTime.minutes}"
+            }
         }
         fun bind(item: ChatRow?) {
             if (item == null) return
