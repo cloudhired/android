@@ -1,9 +1,11 @@
 package com.cloudhired
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import android.content.Intent
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -25,6 +27,7 @@ import org.w3c.dom.Text
 
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var auth: Auth
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,10 +48,10 @@ class MainActivity : AppCompatActivity() {
         setupNavigationMenu(navController)
         setupBottomNavMenu(navController)
 
-
-
-        val authInitIntent = Intent(this, AuthInitActivity::class.java)
-        startActivity(authInitIntent)
+        // Auth
+        auth = Auth(this)
+//        val authInitIntent = Intent(this, Auth::class.java)
+//        startActivity(authInitIntent)
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -86,6 +89,27 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when(requestCode) {
+            Auth.rcSignIn -> {
+                Log.d(javaClass.simpleName, "activity result $resultCode")
+                if (resultCode == Activity.RESULT_OK) {
+                    // Successfully signed in
+                    val user = FirebaseAuth.getInstance().currentUser
+                    if (user != null) {
+                        auth.setDisplayNameByEmail()
+                    }
+                } else {
+                    // Sign in failed. If response is null the user canceled the
+                    // sign-in flow using the back button. Otherwise check
+                    // response.getError().getErrorCode() and handle the error.
+                    // ...
+                }
+            }
+        }
+    }
+
     private fun setupActionBar(navController: NavController,
                                 appbarConfig: AppBarConfiguration) {
         setupActionBarWithNavController(navController, appbarConfig)
@@ -105,6 +129,9 @@ class MainActivity : AppCompatActivity() {
         when (menuItem.itemId) {
             R.id.signout -> {
                 println(menuItem.itemId)
+                println(FirebaseAuth.getInstance().currentUser)
+                FirebaseAuth.getInstance().signOut()
+                println(FirebaseAuth.getInstance().currentUser)
                 true
             }
             else -> {
