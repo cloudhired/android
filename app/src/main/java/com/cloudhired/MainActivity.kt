@@ -22,6 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.drawer_header.*
 import org.w3c.dom.Text
 
 
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout? = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
             setOf(R.id.fragment_professionals, R.id.fragment_jobs, R.id.fragment_notifications),
-                    drawerLayout )
+                    drawerLayout)
 
         setupActionBar(navController, appBarConfiguration)
         setupNavigationMenu(navController)
@@ -75,8 +76,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // TODO: get user fullname and pass to drawer
         findViewById<TextView>(R.id.dh_name).text = auth.getDisplayName()
+        findViewById<TextView>(R.id.dh_viewprofile).setOnClickListener {
+            println("clicked view profile")
+        }
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
@@ -96,7 +99,6 @@ class MainActivity : AppCompatActivity() {
                     // Successfully signed in
                     val user = FirebaseAuth.getInstance().currentUser
                     if (user != null) {
-                        println("about to change name")
                         auth.setDisplayNameByEmail()
                     }
                 } else {
@@ -123,6 +125,8 @@ class MainActivity : AppCompatActivity() {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNav?.setupWithNavController(navController)
     }
+
+//    private fun
 
     fun onMenuItemClick(menuItem: MenuItem) {
         when (menuItem.itemId) {

@@ -6,7 +6,7 @@
     android:id="@+id/drawer_header"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
+    android:background="@color/ch_bgd">
     <ImageView
         android:id="@+id/dhIV"
         android:layout_width="wrap_content"
@@ -41,7 +41,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:textSize="18dp"
+            android:textColor="@color/fui_linkColor"
             android:text="View my profile"/>
     </LinearLayout>
 

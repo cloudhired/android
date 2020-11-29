@@ -31,7 +31,6 @@ class ProRowAdapter(private val viewModel: MainViewModel)
 
         init {
             basicLL.setOnClickListener {
-                println("you clicked a LL")
                 val pvIntent = Intent(it.context, ViewProfile::class.java)
                 val pvExtras = Bundle()
                 pvExtras.putString(iUsername, getItem(adapterPosition).username)
@@ -40,7 +39,6 @@ class ProRowAdapter(private val viewModel: MainViewModel)
             }
 
             msgIV.setOnClickListener {
-                println("clicked msg")
                 val pvIntent = Intent(it.context, Chat::class.java)
                 val pvExtras = Bundle()
                 pvExtras.putString(iFullname, getItem(adapterPosition).fullname)
