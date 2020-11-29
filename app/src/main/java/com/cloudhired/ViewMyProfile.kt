@@ -32,28 +32,35 @@ class ViewMyProfile : AppCompatActivity() {
         viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
         viewModel.observeMyProfile().observe(this, {
             if (swipe.isRefreshing) swipe.isRefreshing = false
-            vpTitle.text = it.fullname
-            vpName.text = it.fullname
-            vpJobCom.text = "${it.job_title} at ${it.company}"
-            vpLocation.text = it.current_loc
+            println(it)
+            vpTitle.text = it?.fullname ?: intent.getStringExtra("iDisplayName")
+            vpName.text = it?.fullname ?: intent.getStringExtra("iDisplayName")
+            vpJobCom.text = "${it?.job_title ?: "not set"} at ${it?.company ?: "not set"}"
+            vpLocation.text = it?.current_loc ?: "no where"
 
-            vpIntro.text = it.intro
+            vpIntro.text = it?.intro ?: "Nothing special"
             vpSkillsChipGroup.removeAllViews()
-            it.skills.forEach { skill ->
-                val chip = Chip(vpSkillsChipGroup.context)
-                chip.text = skill
-                vpSkillsChipGroup.addView(chip)
+            if (it?.skills != null) {
+                it.skills.forEach { skill ->
+                    val chip = Chip(vpSkillsChipGroup.context)
+                    chip.text = skill
+                    vpSkillsChipGroup.addView(chip)
+                }
             }
 
             // delete all views except the title TV
             vpCertsLL.removeViews(1, vpCertsLL.childCount - 1)
-            it.certs.forEach { cert ->
-                vpCertsLL.addView(createCertLL(cert.cert_name))
+            if (it?.certs != null) {
+                it.certs.forEach { cert ->
+                    vpCertsLL.addView(createCertLL(cert.cert_name))
+                }
             }
 
             vpCoursesLL.removeViews(1, vpCoursesLL.childCount - 1)
-            it.courses.forEach { course ->
-                vpCoursesLL.addView(createCourseLL(course.name))
+            if (it.courses != null) {
+                it.courses.forEach { course ->
+                    vpCoursesLL.addView(createCourseLL(course.name))
+                }
             }
 
             // set whole constraint layout visible to show result at once

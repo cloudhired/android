@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/vpCL"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_basic"
