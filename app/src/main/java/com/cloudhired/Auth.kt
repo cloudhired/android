@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 
-class Auth(activity: MainActivity) {
+class Auth(activity: AppCompatActivity) {
     companion object {
         const val rcSignIn = 27
         // Choose authentication providers
@@ -40,6 +40,7 @@ class Auth(activity: MainActivity) {
             rcSignIn
         )
     }
+
     fun getDisplayName(): String {
         return user?.displayName ?: ""
     }
@@ -53,15 +54,17 @@ class Auth(activity: MainActivity) {
 
     fun setDisplayNameByEmail() {
         val user = FirebaseAuth.getInstance().currentUser ?: return
-        val displayName = user.email?.substringBefore("@")
-        val profileUpdates = UserProfileChangeRequest.Builder()
-            .setDisplayName(displayName)
-            .build()
-        user.updateProfile(profileUpdates)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d(javaClass.simpleName, "User profile updated.")
+        if (user.displayName == null || user.displayName!!.isEmpty()) {
+            val displayName = user.email?.substringBefore("@")
+            val profileUpdates = UserProfileChangeRequest.Builder()
+                .setDisplayName(displayName)
+                .build()
+            user.updateProfile(profileUpdates)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(javaClass.simpleName, "User profile updated.")
+                    }
                 }
-            }
+        }
     }
 }

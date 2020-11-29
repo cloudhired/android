@@ -50,8 +50,6 @@ class MainActivity : AppCompatActivity() {
 
         // Auth
         auth = Auth(this)
-//        val authInitIntent = Intent(this, Auth::class.java)
-//        startActivity(authInitIntent)
 
         topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
@@ -78,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // TODO: get user fullname and pass to drawer
-        findViewById<TextView>(R.id.dh_name).setText("TESERTS")
+        findViewById<TextView>(R.id.dh_name).text = auth.getDisplayName()
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
@@ -98,6 +96,7 @@ class MainActivity : AppCompatActivity() {
                     // Successfully signed in
                     val user = FirebaseAuth.getInstance().currentUser
                     if (user != null) {
+                        println("about to change name")
                         auth.setDisplayNameByEmail()
                     }
                 } else {
@@ -128,10 +127,7 @@ class MainActivity : AppCompatActivity() {
     fun onMenuItemClick(menuItem: MenuItem) {
         when (menuItem.itemId) {
             R.id.signout -> {
-                println(menuItem.itemId)
-                println(FirebaseAuth.getInstance().currentUser)
                 FirebaseAuth.getInstance().signOut()
-                println(FirebaseAuth.getInstance().currentUser)
                 true
             }
             else -> {
