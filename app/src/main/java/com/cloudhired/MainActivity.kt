@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val iUsername = "iUsername"
+        const val iDisplayName = "iDisplayName"
+        const val iUID = "iUID"
         const val iEmail = "iEmail"
     }
 
@@ -137,7 +139,9 @@ class MainActivity : AppCompatActivity() {
         view.setOnClickListener {
             val pvIntent = Intent(it.context, ViewMyProfile::class.java)
             val pvExtras = Bundle()
-            pvExtras.putString(iUsername, "gaomengen")
+            pvExtras.putString(iEmail, auth.getEmail())
+            pvExtras.putString(iUID, auth.getUid())
+            pvExtras.putString(iDisplayName, auth.getDisplayName())
             pvIntent.putExtras(pvExtras)
             it.context.startActivity(pvIntent)
         }

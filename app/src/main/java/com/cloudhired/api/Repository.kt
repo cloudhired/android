@@ -8,7 +8,7 @@ class Repository(private val api: CloudhiredApi) {
         return api.getProSum().results
     }
 
-    suspend fun fetchProfile(username: String): ProfessionalProfile {
-        return api.getProfile(username)
+    suspend fun fetchProfile(id: String, idType: String): ProfessionalProfile {
+        return api.getProfile(id, idType).data
     }
 }

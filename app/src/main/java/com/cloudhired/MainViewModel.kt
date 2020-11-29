@@ -23,6 +23,7 @@ class MainViewModel(application: Application,
     private val cloudhiredRepository = Repository(cloudhiredApi)
     private val proSums = MutableLiveData<List<ProfessionalSummary>>()
     private val proProfile = MutableLiveData<ProfessionalProfile>()
+    private val myProfile = MutableLiveData<ProfessionalProfile>()
 
     private val appContext = getApplication<Application>().applicationContext
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -55,7 +56,13 @@ class MainViewModel(application: Application,
     fun netProfile(username: String) = viewModelScope.launch(
         context = viewModelScope.coroutineContext + Dispatchers.IO)
     {
-        proProfile.postValue(cloudhiredRepository.fetchProfile(username))
+        proProfile.postValue(cloudhiredRepository.fetchProfile(username, "username"))
+    }
+
+    fun netMyProfile(email: String) = viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO)
+    {
+        myProfile.postValue(cloudhiredRepository.fetchProfile(email, "email"))
     }
 
     fun getProfile(): ProfessionalProfile? {
@@ -68,6 +75,10 @@ class MainViewModel(application: Application,
 
     fun observeProfile(): LiveData<ProfessionalProfile> {
         return proProfile
+    }
+
+    fun observeMyProfile(): LiveData<ProfessionalProfile> {
+        return myProfile
     }
 
     /***

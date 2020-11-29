@@ -15,10 +15,11 @@ interface CloudhiredApi {
     @GET("/api/users")
     suspend fun getProSum() : ProSumResponse
 
-    @GET("/api/user/{username}")
-    suspend fun getProfile(@Path("username") username: String) : ProfessionalProfile
+    @GET("/api/{idtype}/{id}")
+    suspend fun getProfile(@Path("id") id: String, @Path("idtype") idtype: String) : ProfileResponse
 
     data class ProSumResponse(val results: List<ProfessionalSummary>)
+    data class ProfileResponse(val data: ProfessionalProfile)
 
     companion object {
         // Leave this as a simple, base URL.  That way, we can have many different

@@ -26,11 +26,11 @@ class ViewMyProfile : AppCompatActivity() {
         setContentView(R.layout.view_my_profile)
         swipe = vpSwipe
         swipe.setOnRefreshListener {
-            viewModel.netProfile(intent.getStringExtra("iUsername")!!)
+            viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
         }
 
-        viewModel.netProfile(intent.getStringExtra("iUsername")!!)
-        viewModel.observeProfile().observe(this, {
+        viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
+        viewModel.observeMyProfile().observe(this, {
             if (swipe.isRefreshing) swipe.isRefreshing = false
             vpTitle.text = it.fullname
             vpName.text = it.fullname
