@@ -8,6 +8,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.widget.Toolbar
@@ -30,6 +31,11 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
     private lateinit var auth: Auth
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    companion object {
+        const val iUsername = "iUsername"
+        const val iEmail = "iEmail"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +85,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.dh_name).text = auth.getDisplayName()
         findViewById<TextView>(R.id.dh_viewprofile).setOnClickListener {
             println("clicked view profile")
+            viewMyProfile(it)
         }
         val navController = findNavController(R.id.nav_host_fragment)
         return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
@@ -126,7 +133,15 @@ class MainActivity : AppCompatActivity() {
         bottomNav?.setupWithNavController(navController)
     }
 
-//    private fun
+    private fun viewMyProfile(view: View) {
+        view.setOnClickListener {
+            val pvIntent = Intent(it.context, ViewMyProfile::class.java)
+            val pvExtras = Bundle()
+            pvExtras.putString(iUsername, "gaomengen")
+            pvIntent.putExtras(pvExtras)
+            it.context.startActivity(pvIntent)
+        }
+    }
 
     fun onMenuItemClick(menuItem: MenuItem) {
         when (menuItem.itemId) {

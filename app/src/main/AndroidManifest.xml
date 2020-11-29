@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".Auth"></activity>
         <activity android:name=".ViewProfile"></activity>
+        <activity android:name=".ViewMyProfile"></activity>
         <activity android:name=".Chat"></activity>
     </application>
 </manifest>
