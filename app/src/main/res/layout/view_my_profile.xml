@@ -160,6 +160,7 @@
                             android:layout_weight="11"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
                         <ImageView
+                            android:id="@+id/vmpIntroIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_baseline_edit_24" />
@@ -200,6 +201,7 @@
                             android:layout_weight="11"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
                         <ImageView
+                            android:id="@+id/vmpSkillsIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_baseline_edit_24" />
@@ -236,6 +238,7 @@
                             android:layout_weight="11"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
                         <ImageView
+                            android:id="@+id/vmpCertsIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_baseline_edit_24" />
@@ -267,6 +270,7 @@
                             android:layout_weight="11"
                             android:textAppearance="?attr/textAppearanceHeadline6" />
                         <ImageView
+                            android:id="@+id/vmpCoursesIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/ic_baseline_edit_24" />

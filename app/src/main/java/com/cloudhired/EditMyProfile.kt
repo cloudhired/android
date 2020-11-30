@@ -39,6 +39,8 @@ class EditMyProfile : AppCompatActivity() {
         setContentView(R.layout.edit_my_profile_basic)
         swipe = vpSwipe
 
+
+
         vpBack.setOnClickListener {
             finish()
         }

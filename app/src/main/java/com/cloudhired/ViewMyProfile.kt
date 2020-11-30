@@ -32,9 +32,7 @@ import kotlinx.android.synthetic.main.view_profile.vpTitle
 
 class ViewMyProfile : AppCompatActivity() {
     companion object {
-        const val iFullname = "iFullname"
-        const val iUsername = "iUsername"
-        const val iToEmail = "iToEmail"
+        const val iEdit = "iEdit"
     }
     private lateinit var swipe: SwipeRefreshLayout
     private val viewModel: MainViewModel by viewModels()
@@ -47,13 +45,11 @@ class ViewMyProfile : AppCompatActivity() {
             viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
         }
 
-        vmpBasicIV.setOnClickListener {
-            val pvIntent = Intent(it.context, EditMyProfile::class.java)
-            val pvExtras = Bundle()
-            pvExtras.putString(iUsername, "iUsername")
-            pvIntent.putExtras(pvExtras)
-            it.context.startActivity(pvIntent)
-        }
+        initEditProfile(vmpBasicIV)
+        initEditProfile(vmpIntroIV)
+        initEditProfile(vmpSkillsIV)
+        initEditProfile(vmpCertsIV)
+        initEditProfile(vmpCoursesIV)
 
         viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
         viewModel.observeMyProfile().observe(this, {
@@ -142,6 +138,17 @@ class ViewMyProfile : AppCompatActivity() {
             addView(TextView(this.context).apply {
                 text = courseName
             }, TVlparams)
+        }
+    }
+
+    private fun initEditProfile(view: View) {
+        view.setOnClickListener {
+            val pvIntent = Intent(it.context, EditMyProfile::class.java)
+            val pvExtras = Bundle()
+            println(view.id)
+            pvExtras.putInt(iEdit, view.id)
+            pvIntent.putExtras(pvExtras)
+            it.context.startActivity(pvIntent)
         }
     }
     
