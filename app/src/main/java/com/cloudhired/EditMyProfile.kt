@@ -40,23 +40,25 @@ class EditMyProfile : AppCompatActivity() {
         setContentView(R.layout.edit_my_profile_basic)
         swipe = vpSwipe
 
-        println(intent.getIntExtra("iEdit", 0))
-        println(R.id.vmpBasicIV)
-        when (intent.getIntExtra("iEdit", 0)) {
-            R.id.vmpBasicIV -> {
-                val myP = viewModel.getMyProfile()
-                println(myP?.fullname)
-                if (myP != null) {
-                    println(myP.fullname)
-                    epNameTIL.editText?.setText(myP.fullname)
+        viewModel.netMyProfile("gaomengen@gmail.com")
+        viewModel.observeMyProfile().observe(this, {
+            when (intent.getIntExtra("iEdit", 0)) {
+                R.id.vmpBasicIV -> {
+                    epTitle.text = "Edit Basics"
+                    epNameTIL.editText?.setText(it.fullname)
+                    epTitleTIL.editText?.setText(it.job_title)
+                    epCompanyTIL.editText?.setText(it.company)
+                    epLocationTIL.editText?.setText(it.current_loc)
+                    epSave.setOnClickListener {
+                        println("saved")
+                    }
                 }
-
+                else -> {}
             }
-            else -> {}
-        }
+        })
 
 
-        vpBack.setOnClickListener {
+        epBack.setOnClickListener {
             finish()
         }
     }

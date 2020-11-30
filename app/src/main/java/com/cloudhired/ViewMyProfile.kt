@@ -55,6 +55,7 @@ class ViewMyProfile : AppCompatActivity() {
         viewModel.observeMyProfile().observe(this, {
             if (swipe.isRefreshing) swipe.isRefreshing = false
             println(it)
+            println(viewModel.getMyProfile())
             vpTitle.text = it?.fullname ?: intent.getStringExtra("iDisplayName")
             vpName.text = it?.fullname ?: intent.getStringExtra("iDisplayName")
             vpJobCom.text = "${it?.job_title ?: "not set"} at ${it?.company ?: "not set"}"
