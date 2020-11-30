@@ -1,5 +1,6 @@
 package com.cloudhired
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -15,9 +16,26 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cloudhired.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.android.synthetic.main.view_my_profile.*
 import kotlinx.android.synthetic.main.view_profile.*
+import kotlinx.android.synthetic.main.view_profile.vpBack
+import kotlinx.android.synthetic.main.view_profile.vpCL
+import kotlinx.android.synthetic.main.view_profile.vpCertsLL
+import kotlinx.android.synthetic.main.view_profile.vpCoursesLL
+import kotlinx.android.synthetic.main.view_profile.vpIntro
+import kotlinx.android.synthetic.main.view_profile.vpJobCom
+import kotlinx.android.synthetic.main.view_profile.vpLocation
+import kotlinx.android.synthetic.main.view_profile.vpName
+import kotlinx.android.synthetic.main.view_profile.vpSkillsChipGroup
+import kotlinx.android.synthetic.main.view_profile.vpSwipe
+import kotlinx.android.synthetic.main.view_profile.vpTitle
 
 class ViewMyProfile : AppCompatActivity() {
+    companion object {
+        const val iFullname = "iFullname"
+        const val iUsername = "iUsername"
+        const val iToEmail = "iToEmail"
+    }
     private lateinit var swipe: SwipeRefreshLayout
     private val viewModel: MainViewModel by viewModels()
 
@@ -27,6 +45,14 @@ class ViewMyProfile : AppCompatActivity() {
         swipe = vpSwipe
         swipe.setOnRefreshListener {
             viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
+        }
+
+        vmpBasicIV.setOnClickListener {
+            val pvIntent = Intent(it.context, EditMyProfile::class.java)
+            val pvExtras = Bundle()
+            pvExtras.putString(iUsername, "iUsername")
+            pvIntent.putExtras(pvExtras)
+            it.context.startActivity(pvIntent)
         }
 
         viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)

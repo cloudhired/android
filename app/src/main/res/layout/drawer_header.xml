@@ -36,16 +36,19 @@
             android:textSize="24dp"
             android:textFontWeight="@integer/config_navAnimTime"
             android:text="Morgan Gao"/>
-        <TextView
+
+        <Button
             android:id="@+id/dh_viewprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="0dp"
             android:layout_weight="1"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:textSize="18dp"
+            android:paddingHorizontal="0dp"
+            android:text="View my profile"
             android:textColor="@color/fui_linkColor"
-            android:text="View my profile"/>
+            android:textSize="12dp"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
