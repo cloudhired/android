@@ -136,20 +136,45 @@ class MainViewModel(application: Application,
         // XXX Write me.  Limit total number of chat rows to 100
         println("$toEmail-${FirebaseAuth.getInstance().currentUser?.email}")
         db.collection("userInteractions")
-                .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
-                .collection("chatMessages")
-                .orderBy("timeStamp")
-                .limit(100)
-                .addSnapshotListener { querySnapshot, ex ->
-                    if (ex != null) {
-                        return@addSnapshotListener
-                    }
-                    if (querySnapshot != null) {
-                        chat.value = querySnapshot.documents.mapNotNull {
-                            it.toObject(ChatRow::class.java)
-                        }
+            .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
+            .collection("chatMessages")
+            .orderBy("timeStamp")
+            .limit(100)
+            .addSnapshotListener { querySnapshot, ex ->
+                if (ex != null) {
+                    return@addSnapshotListener
+                }
+                if (querySnapshot != null) {
+                    chat.value = querySnapshot.documents.mapNotNull {
+                        it.toObject(ChatRow::class.java)
                     }
                 }
+            }
+
+        // following commented code can be used to find all chats related to someone.
+//            .whereEqualTo("from", "cloudhired@gmail.com")
+//            .whereEqualTo("to", "gaomengen@gmail.com")
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                for ( document in documents) {
+//                    document.reference
+//                        .collection("chatMessages")
+//                        .orderBy("timeStamp")
+//                        .limit(100)
+//                        .addSnapshotListener { querySnapshot, ex ->
+//                            if (ex != null) {
+//                                return@addSnapshotListener
+//                            }
+//                            if (querySnapshot != null) {
+//                                chat.value = querySnapshot.documents.mapNotNull {
+//                                    it.toObject(ChatRow::class.java)
+//                                }
+//                            }
+//                        }
+//                }
+//            }
+
+
     }
 
     override fun onCleared() {
