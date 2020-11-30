@@ -16,6 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cloudhired.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import kotlinx.android.synthetic.main.edit_my_profile_basic.*
 import kotlinx.android.synthetic.main.view_my_profile.*
 import kotlinx.android.synthetic.main.view_profile.*
 import kotlinx.android.synthetic.main.view_profile.vpBack
@@ -39,6 +40,20 @@ class EditMyProfile : AppCompatActivity() {
         setContentView(R.layout.edit_my_profile_basic)
         swipe = vpSwipe
 
+        println(intent.getIntExtra("iEdit", 0))
+        println(R.id.vmpBasicIV)
+        when (intent.getIntExtra("iEdit", 0)) {
+            R.id.vmpBasicIV -> {
+                val myP = viewModel.getMyProfile()
+                println(myP?.fullname)
+                if (myP != null) {
+                    println(myP.fullname)
+                    epNameTIL.editText?.setText(myP.fullname)
+                }
+
+            }
+            else -> {}
+        }
 
 
         vpBack.setOnClickListener {

@@ -65,8 +65,8 @@ class MainViewModel(application: Application,
         myProfile.postValue(cloudhiredRepository.fetchProfile(email, "email"))
     }
 
-    fun getProfile(): ProfessionalProfile? {
-        return proProfile.value
+    fun getMyProfile(): ProfessionalProfile? {
+        return myProfile.value
     }
 
     fun observeProSums(): LiveData<List<ProfessionalSummary>> {
