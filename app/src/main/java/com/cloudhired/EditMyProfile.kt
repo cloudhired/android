@@ -6,9 +6,13 @@ import android.view.ViewStub
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.chip.Chip
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.edit_basic.*
+import kotlinx.android.synthetic.main.edit_intro.*
 import kotlinx.android.synthetic.main.edit_my_profile.*
+import kotlinx.android.synthetic.main.edit_skills.*
+import kotlinx.android.synthetic.main.view_profile.*
 import kotlinx.android.synthetic.main.view_profile.vpSwipe
 
 class EditMyProfile : AppCompatActivity() {
@@ -48,6 +52,53 @@ class EditMyProfile : AppCompatActivity() {
                 R.id.vmpIntroIV -> {
                     View.inflate(this, R.layout.edit_intro, swipe)
                     epTitle.text = "Edit Introduction"
+                    epIntroTIL.editText?.setText(it.intro)
+                    epSave.setOnClickListener {
+                        val info = JsonObject()
+                        val setInfo = JsonObject()
+                        info.addProperty("intro", epIntroTIL.editText?.text.toString())
+                        setInfo.add("setInfo", info)
+                        viewModel.updateProfileMV(id, setInfo)
+                        viewModel.observeUpdateError().observe(this, {
+                            viewModel.netMyProfile(id)
+                        })
+                    }
+                }
+                R.id.vmpSkillsIV -> {
+                    var skills = it.skills as MutableList<String>
+                    View.inflate(this, R.layout.edit_skills, swipe)
+                    epTitle.text = "Edit Skills"
+                    if (skills != null) {
+                        skills.forEach { skill ->
+                            val chip = Chip(epSkillsChipGroup.context)
+                            chip.text = skill
+                            epSkillsChipGroup.addView(chip)
+                        }
+                    }
+
+                    epSkillBtn.setOnClickListener {
+                        if (!epSkillTIL.editText?.text.isNullOrBlank()) {
+                            skills.add(epSkillTIL.editText?.text.toString())
+                            epSkillTIL.editText?.setText("")
+                            epSkillsChipGroup.removeAllViews()
+                            skills.forEach { skill ->
+                                val chip = Chip(epSkillsChipGroup.context)
+                                chip.text = skill
+                                epSkillsChipGroup.addView(chip)
+                            }
+                        }
+                    }
+
+                    epSave.setOnClickListener {
+                        val info = JsonObject()
+                        val setInfo = JsonObject()
+                        info.addProperty("intro", epIntroTIL.editText?.text.toString())
+                        setInfo.add("setInfo", info)
+                        viewModel.updateProfileMV(id, setInfo)
+                        viewModel.observeUpdateError().observe(this, {
+                            viewModel.netMyProfile(id)
+                        })
+                    }
                 }
                 else -> {}
             }
