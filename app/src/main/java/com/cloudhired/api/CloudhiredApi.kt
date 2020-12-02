@@ -2,13 +2,15 @@ package com.cloudhired.api
 
 import com.cloudhired.model.ProfessionalProfile
 import com.cloudhired.model.ProfessionalSummary
+import com.cloudhired.model.UpdateError
+import com.google.gson.JsonObject
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.json.JSONObject
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 
 interface CloudhiredApi {
@@ -18,8 +20,13 @@ interface CloudhiredApi {
     @GET("/api/{idtype}/{id}")
     suspend fun getProfile(@Path("id") id: String, @Path("idtype") idtype: String) : ProfileResponse
 
+    @Headers("Content-Type: application/json")
+    @POST("/api/email/{id}")
+    suspend fun updateProfile(@Path("id") id: String, @Body data: JsonObject) : UpdateResponse
+
     data class ProSumResponse(val results: List<ProfessionalSummary>)
     data class ProfileResponse(val data: ProfessionalProfile)
+    data class UpdateResponse(val error: UpdateError)
 
     companion object {
         // Leave this as a simple, base URL.  That way, we can have many different
@@ -36,7 +43,7 @@ interface CloudhiredApi {
         private fun create(httpUrl: HttpUrl): CloudhiredApi {
             val client = OkHttpClient.Builder()
                 .addInterceptor(HttpLoggingInterceptor().apply {
-                    this.level = HttpLoggingInterceptor.Level.BASIC
+                    this.level = HttpLoggingInterceptor.Level.BODY
                 })
                 .build()
             return Retrofit.Builder()

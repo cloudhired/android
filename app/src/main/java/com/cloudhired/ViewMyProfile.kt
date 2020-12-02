@@ -33,6 +33,7 @@ import kotlinx.android.synthetic.main.view_profile.vpTitle
 class ViewMyProfile : AppCompatActivity() {
     companion object {
         const val iEdit = "iEdit"
+        const val iEmail = "iEmail"
     }
     private lateinit var swipe: SwipeRefreshLayout
     private val viewModel: MainViewModel by viewModels()
@@ -54,8 +55,6 @@ class ViewMyProfile : AppCompatActivity() {
         viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
         viewModel.observeMyProfile().observe(this, {
             if (swipe.isRefreshing) swipe.isRefreshing = false
-            println(it)
-            println(viewModel.getMyProfile())
             vpTitle.text = it?.fullname ?: intent.getStringExtra("iDisplayName")
             vpName.text = it?.fullname ?: intent.getStringExtra("iDisplayName")
             vpJobCom.text = "${it?.job_title ?: "not set"} at ${it?.company ?: "not set"}"
@@ -85,7 +84,6 @@ class ViewMyProfile : AppCompatActivity() {
                     vpCoursesLL.addView(createCourseLL(course.name))
                 }
             }
-
             // set whole constraint layout visible to show result at once
             vpCL.visibility = View.VISIBLE
         })
@@ -93,6 +91,11 @@ class ViewMyProfile : AppCompatActivity() {
         vpBack.setOnClickListener {
             finish()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.netMyProfile(intent.getStringExtra("iEmail")!!)
     }
 
     private fun createCertLL(certName: String): LinearLayout {
@@ -146,8 +149,8 @@ class ViewMyProfile : AppCompatActivity() {
         view.setOnClickListener {
             val pvIntent = Intent(it.context, EditMyProfile::class.java)
             val pvExtras = Bundle()
-            println(view.id)
             pvExtras.putInt(iEdit, view.id)
+            pvExtras.putString(iEmail, intent.getStringExtra("iEmail"))
             pvIntent.putExtras(pvExtras)
             it.context.startActivity(pvIntent)
         }

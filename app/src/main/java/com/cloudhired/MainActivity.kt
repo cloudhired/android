@@ -86,7 +86,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         findViewById<TextView>(R.id.dh_name).text = auth.getDisplayName()
         findViewById<TextView>(R.id.dh_viewprofile).setOnClickListener {
-            println("clicked view profile")
             viewMyProfile(it)
         }
         val navController = findNavController(R.id.nav_host_fragment)

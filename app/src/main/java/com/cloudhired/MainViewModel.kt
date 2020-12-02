@@ -8,12 +8,16 @@ import com.cloudhired.model.ProfessionalProfile
 import com.cloudhired.api.Repository
 import com.cloudhired.model.ChatRow
 import com.cloudhired.model.ProfessionalSummary
+import com.cloudhired.model.UpdateError
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class MainViewModel(application: Application,
     private val state: SavedStateHandle
@@ -24,6 +28,7 @@ class MainViewModel(application: Application,
     private val proSums = MutableLiveData<List<ProfessionalSummary>>()
     private val proProfile = MutableLiveData<ProfessionalProfile>()
     private val myProfile = MutableLiveData<ProfessionalProfile>()
+    private val updateError = MutableLiveData<UpdateError>()
 
     private val appContext = getApplication<Application>().applicationContext
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -65,8 +70,18 @@ class MainViewModel(application: Application,
         myProfile.postValue(cloudhiredRepository.fetchProfile(email, "email"))
     }
 
+    fun updateProfileMV(id: String, data: JsonObject) = viewModelScope.launch(
+        context = viewModelScope.coroutineContext + Dispatchers.IO
+    ) {
+        updateError.postValue(cloudhiredRepository.updateMyProfile(id, data))
+    }
+
     fun getMyProfile(): ProfessionalProfile? {
         return myProfile.value
+    }
+
+    fun observeUpdateError(): LiveData<UpdateError> {
+        return updateError
     }
 
     fun observeProSums(): LiveData<List<ProfessionalSummary>> {
