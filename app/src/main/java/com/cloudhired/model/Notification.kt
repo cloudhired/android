@@ -12,5 +12,7 @@ data class Notification (
     @SerializedName("message")
     val message: String,
     @SerializedName("time")
-    val time: String
+    val time: String,
+    @SerializedName("email")
+    val email: String
 )

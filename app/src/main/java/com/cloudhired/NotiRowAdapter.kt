@@ -56,7 +56,7 @@ class NotiRowAdapter(private val viewModel: MainViewModel)
         holder.bind(getItem(position))
     }
 
-    class ProSumDiff : DiffUtil.ItemCallback<Notification>() {
+    class NotiSumDiff : DiffUtil.ItemCallback<Notification>() {
         override fun areItemsTheSame(oldItem: Notification, newItem: Notification): Boolean {
             return oldItem._id == newItem._id
         }
@@ -67,6 +67,7 @@ class NotiRowAdapter(private val viewModel: MainViewModel)
                     && oldItem.time == newItem.time
                     && oldItem.message == newItem.message
                     && oldItem.username == newItem.username
+                    && oldItem.email == newItem.email
         }
     }
 }

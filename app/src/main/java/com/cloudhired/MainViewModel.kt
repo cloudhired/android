@@ -4,11 +4,8 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.cloudhired.api.CloudhiredApi
-import com.cloudhired.model.ProfessionalProfile
 import com.cloudhired.api.Repository
-import com.cloudhired.model.ChatRow
-import com.cloudhired.model.ProfessionalSummary
-import com.cloudhired.model.UpdateError
+import com.cloudhired.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,6 +26,7 @@ class MainViewModel(application: Application,
     private val proProfile = MutableLiveData<ProfessionalProfile>()
     private val myProfile = MutableLiveData<ProfessionalProfile>()
     private val updateError = MutableLiveData<UpdateError>()
+    private val notifications = MutableLiveData<List<ChatRow>>()
 
     private val appContext = getApplication<Application>().applicationContext
     private var db: FirebaseFirestore = FirebaseFirestore.getInstance()
@@ -190,6 +188,40 @@ class MainViewModel(application: Application,
 //            }
 
 
+    }
+
+    // email is the owner email. used to get all the conversations owner has
+    fun netNotifications(email: String) {
+        if(FirebaseAuth.getInstance().currentUser == null) {
+            Log.d(javaClass.simpleName, "Can't get chat, no one is logged in")
+            chat.value = listOf()
+            return
+        }
+        db.collection("userInteractions")
+            .whereArrayContains("participants", email)
+            .get()
+            .addOnSuccessListener { documents ->
+                for ( document in documents) {
+                    document.reference
+                        .collection("chatMessages")
+                        .orderBy("timeStamp")
+                        .limit(1)
+                        .addSnapshotListener { querySnapshot, ex ->
+                            if (ex != null) {
+                                return@addSnapshotListener
+                            }
+                            if (querySnapshot != null) {
+                                notifications.value = querySnapshot.documents.mapNotNull {
+                                    it.toObject(ChatRow::class.java)
+                                }
+                            }
+                        }
+                }
+            }
+    }
+
+    fun observeNotifacations(): LiveData<List<ChatRow>> {
+        return notifications
     }
 
     override fun onCleared() {
