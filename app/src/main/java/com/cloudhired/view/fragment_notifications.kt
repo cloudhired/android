@@ -5,22 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.cloudhired.MainViewModel
+import com.cloudhired.ProRowAdapter
 import com.cloudhired.R
+import kotlinx.android.synthetic.main.fragment_notifications.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [fragment_notifications.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentNotifications : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var swipe: SwipeRefreshLayout
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,26 @@ class FragmentNotifications : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notifications, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        swipe = notiSwipe
+        swipe.setOnRefreshListener {
+            viewModel.netRefresh()
+        }
+
+        val adapter = ProRowAdapter(viewModel)
+        notiRecyclerView.adapter = adapter
+        notiRecyclerView.layoutManager = LinearLayoutManager(activity)
+
+        viewModel.netRefresh()
+
+        viewModel.observeProSums().observe(viewLifecycleOwner, {
+            adapter.submitList(it)
+            adapter.notifyDataSetChanged()
+            if (swipe.isRefreshing) swipe.isRefreshing = false
+        })
     }
 
     companion object {
