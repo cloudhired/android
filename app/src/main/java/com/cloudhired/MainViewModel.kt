@@ -112,19 +112,31 @@ class MainViewModel(application: Application,
     fun saveChatRow(toEmail: String, chatRow: ChatRow) {
         // https://firebase.google.com/docs/firestore/manage-data/add-data#add_a_document
         // Remember to set the rowID of the chatRow before saving
+
+        val docRef = db.collection("userInteractions")
+            .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
+        docRef.get().addOnSuccessListener {
+            if (!it.exists()) {
+                val data = hashMapOf<String, List<String>>(
+                    "participants" to arrayListOf(toEmail, FirebaseAuth.getInstance().currentUser?.email!!)
+                )
+                docRef.set(data)
+            }
+        }
+
         chatRow.rowID = db.collection("userInteractions").document().id
         db.collection("userInteractions")
-                .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
-                .collection("chatMessages")
-                .document(chatRow.rowID)
-                .set(chatRow)
-                .addOnSuccessListener {
-                    Log.d( javaClass.simpleName,"Message saved" )
-                }
-                .addOnFailureListener { e ->
-                    Log.d(javaClass.simpleName, "Messaged not saved!!")
-                    Log.w(javaClass.simpleName, "Error ", e)
-                }
+            .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
+            .collection("chatMessages")
+            .document(chatRow.rowID)
+            .set(chatRow)
+            .addOnSuccessListener {
+                Log.d( javaClass.simpleName,"Message saved" )
+            }
+            .addOnFailureListener { e ->
+                Log.d(javaClass.simpleName, "Messaged not saved!!")
+                Log.w(javaClass.simpleName, "Error ", e)
+            }
     }
 
     fun deleteChatRow(chatRow: ChatRow){
