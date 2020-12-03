@@ -7,13 +7,14 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.chip.Chip
-import com.google.gson.JsonObject
+import com.google.gson.*
 import kotlinx.android.synthetic.main.edit_basic.*
 import kotlinx.android.synthetic.main.edit_intro.*
 import kotlinx.android.synthetic.main.edit_my_profile.*
 import kotlinx.android.synthetic.main.edit_skills.*
 import kotlinx.android.synthetic.main.view_profile.*
 import kotlinx.android.synthetic.main.view_profile.vpSwipe
+import org.json.JSONArray
 
 class EditMyProfile : AppCompatActivity() {
     private lateinit var swipe: SwipeRefreshLayout
@@ -65,7 +66,7 @@ class EditMyProfile : AppCompatActivity() {
                     }
                 }
                 R.id.vmpSkillsIV -> {
-                    var skills = it.skills as MutableList<String>
+                    var skills = it.skills as ArrayList<String>
                     View.inflate(this, R.layout.edit_skills, swipe)
                     epTitle.text = "Edit Skills"
                     if (skills != null) {
@@ -90,12 +91,15 @@ class EditMyProfile : AppCompatActivity() {
                     }
 
                     epSave.setOnClickListener {
+                        val gson = Gson()
                         val info = JsonObject()
                         val setInfo = JsonObject()
-                        info.addProperty("intro", epIntroTIL.editText?.text.toString())
+
+                        info.addProperty("skills", "[tech,rh]")
                         setInfo.add("setInfo", info)
                         viewModel.updateProfileMV(id, setInfo)
                         viewModel.observeUpdateError().observe(this, {
+                            epSkillsChipGroup.removeAllViews()
                             viewModel.netMyProfile(id)
                         })
                     }

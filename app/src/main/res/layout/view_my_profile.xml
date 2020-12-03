@@ -204,7 +204,8 @@
                             android:id="@+id/vmpSkillsIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ic_baseline_edit_24" />
+                            android:background="@drawable/ic_baseline_edit_24"
+                            android:visibility="invisible"/>
                     </LinearLayout>
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/vpSkillsChipGroup"
@@ -241,7 +242,8 @@
                             android:id="@+id/vmpCertsIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ic_baseline_edit_24" />
+                            android:background="@drawable/ic_baseline_edit_24"
+                            android:visibility="invisible"/>
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -273,7 +275,8 @@
                             android:id="@+id/vmpCoursesIV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ic_baseline_edit_24" />
+                            android:background="@drawable/ic_baseline_edit_24"
+                            android:visibility="invisible"/>
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

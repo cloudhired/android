@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/fragment_professionals"
-        android:name="com.cloudhired.view.fragment_professionals"
+        android:name="com.cloudhired.view.FragmentProfessionals"
         android:label="Professionals"
         tools:layout="@layout/fragment_professionals" >
         <action
@@ -20,12 +20,12 @@
 
     <fragment
         android:id="@+id/fragment_jobs"
-        android:name="com.cloudhired.view.fragment_jobs"
+        android:name="com.cloudhired.view.FragmentJobs"
         android:label="Jobs"
         tools:layout="@layout/fragment_jobs" />
     <fragment
         android:id="@+id/fragment_notifications"
-        android:name="com.cloudhired.view.fragment_notifications"
+        android:name="com.cloudhired.view.FragmentNotifications"
         android:label="Notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
