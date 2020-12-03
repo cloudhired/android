@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.cloudhired.*
+import com.cloudhired.model.Notification
 import kotlinx.android.synthetic.main.fragment_notifications.*
 
 private const val ARG_PARAM1 = "param1"
@@ -20,6 +21,7 @@ class FragmentNotifications : Fragment() {
     private var param2: String? = null
     private lateinit var swipe: SwipeRefreshLayout
     private lateinit var auth: Auth
+    private var notiList = mutableListOf<Notification>()
     private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +45,7 @@ class FragmentNotifications : Fragment() {
         auth = Auth(AppCompatActivity())
         swipe = notiSwipe
         swipe.setOnRefreshListener {
+            notiList.clear()
             viewModel.netNotifications(auth.getEmail())
         }
 
@@ -54,10 +57,24 @@ class FragmentNotifications : Fragment() {
 
 
         viewModel.observeNotifacations().observe(viewLifecycleOwner, {
+            it.forEach {
+                val timeStamp = it.timeStamp?.toDate()
+                val time = "${timeStamp?.hours}:${timeStamp?.minutes}"
+                notiList.add(
+                    Notification(
+                        _id = it.rowID,
+                        fullname = it.name,
+                        message = it.message,
+                        email = "",
+                        username = "",
+                        time = time
+                    ))
+            }
+
             println(it)
-//            adapter.submitList(it)
-//            adapter.notifyDataSetChanged()
-//            if (swipe.isRefreshing) swipe.isRefreshing = false
+            adapter.submitList(notiList)
+            adapter.notifyDataSetChanged()
+            if (swipe.isRefreshing) swipe.isRefreshing = false
         })
     }
 

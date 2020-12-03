@@ -6,13 +6,13 @@ data class Notification (
     @SerializedName("_id")
     val _id: String,
     @SerializedName("username")
-    val username: String,
+    val username: String?,
     @SerializedName("fullname")
-    val fullname: String,
+    val fullname: String?,
     @SerializedName("message")
-    val message: String,
+    val message: String?,
     @SerializedName("time")
-    val time: String,
+    val time: String?,
     @SerializedName("email")
-    val email: String
+    val email: String?
 )
