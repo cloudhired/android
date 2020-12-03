@@ -147,7 +147,6 @@ class MainViewModel(application: Application,
             return
         }
         // XXX Write me.  Limit total number of chat rows to 100
-        println("$toEmail-${FirebaseAuth.getInstance().currentUser?.email}")
         db.collection("userInteractions")
             .document(generateConversationId(toEmail, FirebaseAuth.getInstance().currentUser?.email!!))
             .collection("chatMessages")

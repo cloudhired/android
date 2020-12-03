@@ -7,6 +7,7 @@ import com.google.firebase.firestore.ServerTimestamp
 data class ChatRow(
     var name: String? = null,
     var message: String? = null,
+    var ownerEmail: String? = null,
     var ownerUid: String? = null,
     var pictureUUID: String? = null,
     @ServerTimestamp val timeStamp: Timestamp? = null,

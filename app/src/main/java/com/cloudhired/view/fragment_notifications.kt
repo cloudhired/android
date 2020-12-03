@@ -65,13 +65,11 @@ class FragmentNotifications : Fragment() {
                         _id = it.rowID,
                         fullname = it.name,
                         message = it.message,
-                        email = "",
+                        email = it.ownerEmail,
                         username = "",
                         time = time
                     ))
             }
-
-            println(it)
             adapter.submitList(notiList)
             adapter.notifyDataSetChanged()
             if (swipe.isRefreshing) swipe.isRefreshing = false
