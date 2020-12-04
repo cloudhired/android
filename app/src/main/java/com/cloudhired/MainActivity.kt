@@ -60,21 +60,21 @@ class MainActivity : AppCompatActivity() {
         // Auth
         auth = Auth(this)
 
-        topAppBar.setOnMenuItemClickListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.favorite -> {
-                    // Handle favorite icon press
-                    println("favorite clicked")
-                    true
-                }
-                R.id.search -> {
-                    // Handle search icon press
-                    println("search clickedfg")
-                    true
-                }
-                else -> false
-            }
-        }
+//        topAppBar.setOnMenuItemClickListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.favorite -> {
+//                    // Handle favorite icon press
+//                    println("favorite clicked")
+//                    true
+//                }
+//                R.id.search -> {
+//                    // Handle search icon press
+//                    println("search clickedfg")
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
     }
 

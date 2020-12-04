@@ -33,7 +33,6 @@ class Auth(activity: AppCompatActivity) {
         activity.startActivityForResult(
             AuthUI.getInstance()
                 .createSignInIntentBuilder()
-                // Was creating problems
                 .setIsSmartLockEnabled(false)
                 .setAvailableProviders(providers)
                 .build(),

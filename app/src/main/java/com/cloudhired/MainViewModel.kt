@@ -43,10 +43,6 @@ class MainViewModel(application: Application,
     fun observeFirebaseAuthLiveData(): LiveData<FirebaseUser?> {
         return firebaseAuthLiveData
     }
-    fun getFirebaseAuthLiveData(): FirebaseUser? {
-        return firebaseAuthLiveData.value
-    }
-
 
     /***
      * FOLLOWING METHODS USED FOR PROFILE
