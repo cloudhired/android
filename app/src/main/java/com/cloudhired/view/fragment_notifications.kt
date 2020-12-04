@@ -55,20 +55,32 @@ class FragmentNotifications : Fragment() {
 
         viewModel.netNotifications(auth.getEmail())
 
-
         viewModel.observeNotifacations().observe(viewLifecycleOwner, {
             it.forEach {
                 val timeStamp = it.timeStamp?.toDate()
                 val time = "${timeStamp?.hours}:${timeStamp?.minutes}"
-                notiList.add(
-                    Notification(
-                        _id = it.rowID,
-                        fullname = it.name,
-                        message = it.message,
-                        email = it.ownerEmail,
-                        username = "",
-                        time = time
-                    ))
+                val userEmail = auth.getEmail()
+                if (userEmail == it.ownerEmail) {
+                    notiList.add(
+                        Notification(
+                            _id = it.rowID,
+                            fullname = it.receiverName,
+                            message = it.message,
+                            email = it.receiverEmail,
+                            username = "",
+                            time = time
+                        ))
+                } else {
+                    notiList.add(
+                        Notification(
+                            _id = it.rowID,
+                            fullname = it.name,
+                            message = it.message,
+                            email = it.ownerEmail,
+                            username = "",
+                            time = time
+                        ))
+                }
             }
             adapter.submitList(notiList)
             adapter.notifyDataSetChanged()

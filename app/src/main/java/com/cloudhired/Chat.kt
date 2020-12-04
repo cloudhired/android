@@ -20,6 +20,7 @@ import com.cloudhired.R
 import com.cloudhired.model.ChatRow
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.view_chat.*
 
@@ -62,11 +63,13 @@ class Chat : AppCompatActivity() {
                     if(cUser == null) {
                         name = "unknown"
                         ownerUid = "unknown"
-                        Log.d("HomeFragment", "XXX, currentUser null!")
                     } else {
                         name = cUser.displayName
                         ownerUid = cUser.uid
+                        ownerEmail = FirebaseAuth.getInstance().currentUser?.email
                     }
+                    receiverName = intent.getStringExtra("iFullname")!!
+                    receiverEmail = intent.getStringExtra("iToEmail")!!
                     message = cvComposeMessageET.text.toString()
                     pictureUUID = fragmentUUID
                     clearCompose()

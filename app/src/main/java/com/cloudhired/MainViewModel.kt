@@ -10,6 +10,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.Query
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -215,7 +216,7 @@ class MainViewModel(application: Application,
                 for ( document in documents) {
                     document.reference
                         .collection("chatMessages")
-                        .orderBy("timeStamp")
+                        .orderBy("timeStamp", Query.Direction.DESCENDING)
                         .limit(1)
                         .addSnapshotListener { querySnapshot, ex ->
                             if (ex != null) {
