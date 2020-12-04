@@ -79,10 +79,10 @@ class ChatAdapter(private var viewModel: MainViewModel)
 //            textTV.setTextColor(textColor)
 //            userTV.text = item.name
             textTV.text = item.message
-            textCV.setOnLongClickListener {
-                viewModel.deleteChatRow(item)
-                true
-            }
+//            textCV.setOnLongClickListener {
+//                viewModel.deleteChatRow(item)
+//                true
+//            }
             // XXX Write me, bind picIV using pictureUUID.
 //            if (item.pictureUUID != null) {
 //                viewModel.glideFetch(item.pictureUUID!!, picIV)

@@ -140,18 +140,18 @@ class MainViewModel(application: Application,
             }
     }
 
-    fun deleteChatRow(chatRow: ChatRow){
-        // Delete picture (if any) on the server, asynchronously
-        val uuid = chatRow.pictureUUID
+//    fun deleteChatRow(chatRow: ChatRow){
+//        // Delete picture (if any) on the server, asynchronously
+//        val uuid = chatRow.pictureUUID
 //        if(uuid != null) {
 //            Storage.deleteImage(uuid)
 //        }
 
-        db.collection("chMessages").document(chatRow.rowID).delete()
+//        db.collection("chMessages").document(chatRow.rowID).delete()
 //        if (uuid != null) {
 //            Storage.deleteImage(uuid)
 //        }
-    }
+//    }
 
     fun getChat(toEmail: String) {
         if(FirebaseAuth.getInstance().currentUser == null) {
