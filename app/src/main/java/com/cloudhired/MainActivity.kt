@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         findViewById<TextView>(R.id.dh_name).text = auth.getDisplayName()
         findViewById<TextView>(R.id.dh_viewprofile).setOnClickListener {
+
             viewMyProfile(it)
         }
         val navController = findNavController(R.id.nav_host_fragment)
@@ -135,15 +136,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun viewMyProfile(view: View) {
-        view.setOnClickListener {
-            val pvIntent = Intent(it.context, ViewMyProfile::class.java)
-            val pvExtras = Bundle()
-            pvExtras.putString(iEmail, auth.getEmail())
-            pvExtras.putString(iUID, auth.getUid())
-            pvExtras.putString(iDisplayName, auth.getDisplayName())
-            pvIntent.putExtras(pvExtras)
-            it.context.startActivity(pvIntent)
-        }
+        val pvIntent = Intent(view.context, ViewMyProfile::class.java)
+        val pvExtras = Bundle()
+        pvExtras.putString(iEmail, auth.getEmail())
+        pvExtras.putString(iUID, auth.getUid())
+        pvExtras.putString(iDisplayName, auth.getDisplayName())
+        pvIntent.putExtras(pvExtras)
+        view.context.startActivity(pvIntent)
     }
 
     fun onMenuItemClick(menuItem: MenuItem) {

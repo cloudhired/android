@@ -54,8 +54,8 @@ class FragmentNotifications : Fragment() {
         notiRecyclerView.layoutManager = LinearLayoutManager(activity)
 
         viewModel.netNotifications(auth.getEmail())
-
         viewModel.observeNotifacations().observe(viewLifecycleOwner, {
+            println("see me?")
             it.forEach {
                 val timeStamp = it.timeStamp?.toDate()
                 val time = "${timeStamp?.hours}:${timeStamp?.minutes}"
@@ -87,6 +87,7 @@ class FragmentNotifications : Fragment() {
             if (swipe.isRefreshing) swipe.isRefreshing = false
         })
     }
+
 
     companion object {
         @JvmStatic
